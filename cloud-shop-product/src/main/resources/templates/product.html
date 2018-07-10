@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp3" ng-controller="myCtrl3"> 
+
+<h2>PRODUCTS BELOW HERE</h2>
+
+<h3>SEE OUR LIST OF PRODUCTS</h3>
+{{prod}}
+<table>
+ <tr><th>Product Id</th>
+  <th> Name</th>
+  <th> Description</th>
+  <th> Category</th>
+  <th> Stock</th>
+  <th> Price</th>
+  </tr> 
+  <tr ng-repeat="x in prod">
+    <td>{{ x.product_Id }}</td>
+    <td>{{ x.name }}</td>
+	<td>{{ x.description }}</td>
+	<td>{{ x.cat }}</td>
+	<td>{{ x.stock }}</td>
+	<td>{{ x.price  | currency:"€ "}}</td>
+  </tr>
+</table>  
+
+</div>
+
+<script>
+var app = angular.module('myApp3', []);
+app.controller('myCtrl3', function($scope, $http) {
+    $http({
+        method : "GET",
+        url : "http://localhost:8080/product/one"
+    }).then(function mySuccess(response) {
+        $scope.prod = response.data;
+    }, function myError(response) {
+        $scope.prod = response.data;
+    });
+});
+</script>
+</body>
+</html>

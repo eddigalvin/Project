@@ -1,0 +1,94 @@
+<div ng-app="myApp2" ng-controller="myCtrl2"> 
+
+<div ng-app="myApp" ng-controller="formCtrl">
+  <form novalidate>
+    First Name:<br>
+    <input type="text" ng-model="user.email"><br>
+    Last Name:<br>
+    <input type="text" ng-model="user.password">
+    <br><br>
+    <button ng-click="reset()">RESET</button>
+  </form>
+  <p>form = {{user}}</p>
+  <p>master = {{master}}</p>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('formCtrl', function($scope) {
+    
+});
+</script>
+
+</div>
+<!-- Below is products view display angular app , controller -->
+<script>
+var app = angular.module('myApp2', []);
+app.controller('myCtrl2', function($scope, $http) {
+    $http({
+        method : "GET",
+        url : "http://localhost:8080/product/allang"
+    }).then(function mySuccess(response) {
+        $scope.prods = response.data;
+    }, function myError(response) {
+        $scope.prods = response.data;
+    });
+});
+
+var app1 = angular.module('myApp1', []);
+app.controller('myCtrl1', function($scope, $http) {
+    $http.get("http://localhost:8080/product/all")
+    .then(function(response) {
+        $scope.myWelcome = response.data;
+    });
+});
+</script>
+
+<script>
+var postApp1 = angular.module('postApp1', []);
+    postApp.controller('postController1', function($scope, $http) {
+      $scope.user = {};
+        $scope.submitForm = function() {
+        $http({
+          method  : 'POST',
+          url     : "http://localhost:8120/login1",
+          data    : $scope.user,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         })
+          .success(function(data) {
+            if (data.errors) {
+              $scope.errorName = data.errors.name;
+              $scope.errorUserName = data.errors.username;
+              $scope.errorEmail = data.errors.email;
+            } else {
+              $scope.message = data.message;
+            }
+          });
+        };
+    });   
+    </script>
+    
+    <script>
+
+var app1 = angular.module('myApp1', []);
+app.controller('myCtrl1', function($scope, $http) {
+    $http.get("http://localhost:8080/product/all")
+    .then(function(response) {
+        $scope.myWelcome = response.data;
+    });
+});
+</script>
+
+  <script>
+    var app = angular.module('myApp2', []);
+app.controller('myCtrl2', function($scope, $http) {
+    $http({
+        method : "GET",
+        url : "http://localhost:8080/product/allang"
+    }).then(function mySuccess(response) {
+        $scope.prods = response.data;
+    }, function myError(response) {
+        $scope.prods = response.data;
+    });
+});
+</script>

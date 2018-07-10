@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+table, th , td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+height: 50%;
+    background-color: #555;
+    color: white;
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+
+<link href="prod.css" rel="stylesheet"/>
+</head>
+    
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid" >
+ 
+  </div>
+</nav>
+
+
+<!---->
+<div ng-app="myApp2" ng-controller="myCtrl2"> 
+
+<h2>PRODUCTS BELOW HERE</h2>
+
+<h3>SEE OUR LIST OF PRODUCTS</h3>
+  
+<table>
+ <tr><th>Product Id</th>
+  <th> Name</th>
+  <th> Description</th>
+  <th> Category</th>
+  <th> Stock</th>
+  <th> Price</th>
+  </tr> 
+  <tr ng-repeat="x in prods">
+    <td>{{ x.product_Id }}</td>
+    <td>{{ x.name }}</td>
+	<td>{{ x.description }}</td>
+	<td>{{ x.cat }}</td>
+	<td>{{ x.stock }}</td>
+	<td>{{ x.price  | currency:"€ "}}</td>
+  </tr>
+</table>  
+
+</div>
+
+<script>
+var app = angular.module('myApp2', []);
+app.controller('myCtrl2', function($scope, $http) {
+    $http({
+        method : "GET",
+        url : "http://localhost:8080/product/allang"
+    }).then(function mySuccess(response) {
+        $scope.prods = response.data;
+    }, function myError(response) {
+        $scope.prods = response.data;
+    });
+});
+
+var app1 = angular.module('myApp1', []);
+app.controller('myCtrl1', function($scope, $http) {
+    $http.get("http://localhost:8080/product/all")
+    .then(function(response) {
+        $scope.myWelcome = response.data;
+    });
+});
+</script>
+
+</body>
+</html>
