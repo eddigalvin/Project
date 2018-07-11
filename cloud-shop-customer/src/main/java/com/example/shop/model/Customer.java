@@ -1,5 +1,6 @@
 package com.example.shop.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -8,6 +9,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +19,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Table(name="customer")
-public class Customer {
+public class Customer implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -27,6 +31,7 @@ public class Customer {
 	private String phone;
 	private Date dob;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
+	@JsonIgnore
 	private Collection<Order> orders = new ArrayList<Order>();
 	
 	public Customer() {}

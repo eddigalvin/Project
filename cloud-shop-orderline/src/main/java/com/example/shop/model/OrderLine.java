@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="orderLine")
 public class OrderLine implements Serializable{
@@ -32,7 +34,7 @@ public class OrderLine implements Serializable{
 	private BigDecimal price;
 	private BigDecimal subtotal;
     @ManyToOne(fetch = FetchType.LAZY)
-	
+	@JsonIgnore
 	@JoinColumn(name="orderId")//,nullable=false),updatable=false,insertable=false)
     //@JoinTable(name = "ORDER_ORDERLINE")
 	//@JoinColumn(name="order_Id",updatable=false,insertable=false)

@@ -18,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -32,7 +33,7 @@ public class Order implements Serializable{
 	private int custId;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy=/*"order_Id"*/"order",fetch = FetchType.LAZY, orphanRemoval = true)
-	
+	@JsonIgnore
 	private Collection<OrderLine> lineItems = new ArrayList<OrderLine>();
 	
 	private BigDecimal total;
